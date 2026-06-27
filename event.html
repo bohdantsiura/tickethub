@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TicketHub Event Details</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">🎟 TicketHub</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#events">Events</a>
+    <a href="index.html#tickets">My Tickets</a>
+    <a href="account.html">Account</a>
+  </nav>
+</header>
+
+<section class="event-page">
+  <div id="eventPageContent"></div>
+</section>
+
+<script src="js/toast.js"></script>
+<script src="js/events.js"></script>
+
+<script>
+const selectedTitle = localStorage.getItem("selectedEventTitle");
+const eventData = events.find(e => e.title === selectedTitle);
+const box = document.getElementById("eventPageContent");
+
+let selectedSeat = null;
+
+function getVenueType(event){
+  if(event.category === "Motorsport") return "track";
+  if(event.category === "Football" || event.category === "Sports" || event.category === "Basketball" || event.category === "Tennis") return "stadium";
+  if(event.category === "Concert") return "concert";
+  return "festival";
+}
+
+function generateSeats(event){
+  const venue = getVenueType(event);
+
+  const zones = venue === "concert"
+    ? [
+      { name:"VIP Fan Zone", type:"VIP", rows:["A","B"], price:event.price + 140 },
+      { name:"Gold Floor", type:"Gold", rows:["C","D"], price:event.price + 70 },
+      { name:"Balcony", type:"Standard", rows:["E","F"], price:event.price }
+    ]
+    : venue === "stadium"
+    ? [
+      { name:"VIP Central", type:"VIP", rows:["A","B"], price:event.price + 120 },
+      { name:"Gold Lower Stand", type:"Gold", rows:["C","D"], price:event.price + 60 },
+      { name:"Standard Upper Stand", type:"Standard", rows:["E","F"], price:event.price }
+    ]
+    : venue === "track"
+    ? [
+      { name:"Main Grandstand", type:"VIP", rows:["A","B"], price:event.price + 160 },
+      { name:"Turn 1 View", type:"Gold", rows:["C","D"], price:event.price + 80 },
+      { name:"General Admission", type:"Standard", rows:["E","F"], price:event.price }
+    ]
+    : [
+      { name:"Premium Area", type:"VIP", rows:["A","B"], price:event.price + 100 },
+      { name:"Comfort Area", type:"Gold", rows:["C","D"], price:event.price + 40 },
+      { name:"Standard Area", type:"Standard", rows:["E","F"], price:event.price }
+    ];
+
+  let seats = [];
+
+  zones.forEach(zone => {
+    zone.rows.forEach(row => {
+      for(let i = 1; i <= 8; i++){
+        const seatCode = `${row}${i}`;
+        const sold = (row.charCodeAt(0) + i + event.title.length) % 5 === 0;
+
+        seats.push({
+          code: seatCode,
+          zone: zone.name,
+          type: zone.type,
+          price: zone.price,
+          sold
+        });
+      }
+    });
+  });
+
+  return seats;
+}
+
+function venueLabel(event){
+  const type = getVenueType(event);
+
+  if(type === "concert") return "🎤 STAGE";
+  if(type === "stadium") return "🏟 FIELD / ARENA";
+  if(type === "track") return "🏁 TRACK / START LINE";
+  return "🎪 FESTIVAL AREA";
+}
+
+function renderPage(){
+  if(!eventData){
+    box.innerHTML = `<h1>Event not found</h1>`;
+    return;
+  }
+
+  const seats = generateSeats(eventData);
+
+  box.innerHTML = `
+    <div class="event-layout">
+
+      <div>
+        <img class="event-hero-img" src="${eventData.image}">
+
+        <div class="event-info-box">
+          <span class="section-label">${eventData.category}</span>
+          <h1>${eventData.title}</h1>
+
+          <p>📍 ${eventData.location}</p>
+          <p>📅 ${eventData.date}</p>
+          <p>🎟 ${eventData.available} seats available</p>
+          <p>🔥 ${eventData.sold} tickets sold</p>
+
+          <br>
+
+          <p>
+            Choose your exact place before reserving. VIP seats are closest to the action,
+            Gold seats offer a balanced view, and Standard seats are the most affordable.
+          </p>
+        </div>
+      </div>
+
+      <div class="seat-map-box">
+        <span class="section-label">Interactive venue map</span>
+        <h2>Choose your seat</h2>
+
+        <div class="seat-legend">
+          <span><b class="legend-vip"></b> VIP</span>
+          <span><b class="legend-gold"></b> Gold</span>
+          <span><b class="legend-standard"></b> Standard</span>
+          <span><b class="legend-sold"></b> Sold</span>
+        </div>
+
+        <div class="real-map">
+          <div class="map-stage">${venueLabel(eventData)}</div>
+
+          <div class="seat-visual-grid">
+            ${seats.map(seat => `
+              <button
+                class="seat ${seat.type.toLowerCase()} ${seat.sold ? "sold" : ""}"
+                ${seat.sold ? "disabled" : ""}
+                onclick='selectSeat(${JSON.stringify(seat)})'>
+                ${seat.code}
+              </button>
+            `).join("")}
+          </div>
+        </div>
+
+        <div id="selectedSeatBox" class="selected-zone">
+          Select a seat to continue.
+        </div>
+
+        <button class="buy-btn" onclick="reserveSelectedSeat()">
+          Reserve Selected Seat
+        </button>
+      </div>
+
+    </div>
+  `;
+}
+
+function selectSeat(seat){
+  selectedSeat = seat;
+
+  document.querySelectorAll(".seat").forEach(s => s.classList.remove("active"));
+
+  [...document.querySelectorAll(".seat")]
+    .find(s => s.innerText === seat.code)
+    .classList.add("active");
+
+  document.getElementById("selectedSeatBox").innerHTML = `
+    Selected seat: ${seat.code}<br>
+    Zone: ${seat.zone}<br>
+    Class: ${seat.type}<br>
+    Price: $${seat.price}
+  `;
+}
+
+function showToast(title, text){
+  const oldToast = document.querySelector(".toast");
+
+  if(oldToast){
+    oldToast.remove();
+  }
+
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `
+    ${title}
+    <small>${text}</small>
+  `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 50);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3200);
+
+  setTimeout(() => {
+    toast.remove();
+  }, 3600);
+}
+
+function reserveSelectedSeat(){
+  if(!selectedSeat){
+    showToast(
+  "Seat not selected",
+  "Please choose an available seat before reserving.",
+  "error"
+);
+    return;
+  }
+
+  const tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+
+  tickets.push({
+    id:"TH-" + Math.floor(10000 + Math.random() * 90000),
+    title:eventData.title,
+    location:eventData.location,
+    date:eventData.date,
+    price:selectedSeat.price,
+    seat:selectedSeat.code,
+    zone:selectedSeat.zone,
+    seatClass:selectedSeat.type,
+    status:"Awaiting payment",
+    purchasedAt:new Date().toLocaleDateString()
+  });
+
+  localStorage.setItem("tickets", JSON.stringify(tickets));
+
+  showToast(
+  "Seat reserved",
+  `${eventData.title} — ${selectedSeat.code}, ${selectedSeat.type} class`,
+  "ticket"
+);
+
+setTimeout(() => {
+  window.location.href = "index.html#tickets";
+}, 1200);
+}
+
+renderPage();
+</script>
+
+</body>
+</html>

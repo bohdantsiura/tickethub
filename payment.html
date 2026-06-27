@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TicketHub Payment</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">🎟 TicketHub</a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#tickets">My Tickets</a>
+  </nav>
+</header>
+
+<section class="payment-page">
+
+  <div class="payment-card">
+
+    <span class="section-label">Secure Checkout</span>
+
+    <h1>Complete your payment</h1>
+
+    <p class="payment-subtitle">
+      Choose your preferred payment method to confirm your ticket.
+    </p>
+
+    <div id="paymentInfo" class="payment-info"></div>
+
+    <div class="payment-methods">
+
+      <div class="payment-option">
+        <h2>PayPal</h2>
+        <p>
+          Pay safely using your PayPal account, bank card or balance.
+        </p>
+
+        <button class="paypal-btn" onclick="payWithPaypal()">
+          Continue with PayPal
+        </button>
+      </div>
+
+      <div class="payment-option">
+        <h2>Crypto Wallet</h2>
+        <p>
+          Scan the QR code or copy the wallet address to pay with crypto.
+        </p>
+
+        <div class="qr-box">
+          <div class="fake-qr">
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="wallet-box">
+          <small>USDT TRC20 wallet</small>
+          <p id="walletAddress">TKCTpK1HU4HTMau8HrCN2vteYVZeHKErWy</p>
+        </div>
+
+        <button class="copy-btn" onclick="copyWallet()">
+          Copy wallet address
+        </button>
+
+        <button class="pay-btn" onclick="confirmCryptoPayment()">
+          I have paid
+        </button>
+      </div>
+
+    </div>
+
+    <a class="back-link" href="index.html#tickets">
+      ← Back to My Tickets
+    </a>
+
+  </div>
+
+</section>
+
+<script src="js/toast.js"></script>
+<script>
+const paymentInfo = document.getElementById("paymentInfo");
+const ticketId = localStorage.getItem("selectedTicketId");
+const tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+const ticket = tickets.find(t => t.id === ticketId);
+
+if (!ticket) {
+  paymentInfo.innerHTML = `
+    <h3>Ticket not found</h3>
+    <p>Please return to My Tickets and choose a ticket again.</p>
+  `;
+} else {
+  paymentInfo.innerHTML = `
+    <h3>${ticket.title}</h3>
+    <p>Order: ${ticket.id}</p>
+    <p>📍 ${ticket.location}</p>
+    <p>📅 ${ticket.date}</p>
+    <p class="payment-price">$${ticket.price}</p>
+  `;
+}
+
+function markAsPaid() {
+  const index = tickets.findIndex(t => t.id === ticketId);
+
+  if (index !== -1) {
+    tickets[index].status = "Paid / Confirmed";
+    localStorage.setItem("tickets", JSON.stringify(tickets));
+  }
+}
+
+function payWithPaypal() {
+  if (!ticket) {
+    showToast("Payment error", "Ticket not found.", "error");
+    return;
+  }
+
+  const paypalName = "Masha Save";
+  const amount = Number(ticket.price).toFixed(2);
+
+  const paypalUrl = `https://paypal.me/${paypalName}/${amount}USD`;
+
+  window.open(paypalUrl, "_blank");
+
+  showToast(
+    "PayPal opened",
+    "After payment, return here and confirm your order.",
+    "payment"
+  );
+}
+
+function copyWallet() {
+  const wallet = document.getElementById("walletAddress").innerText;
+  navigator.clipboard.writeText(wallet);
+  showToast(
+  "Wallet copied",
+  "Crypto wallet address copied to clipboard.",
+  "info"
+);
+}
+
+function confirmCryptoPayment() {
+  showToast(
+    "Payment submitted",
+    "Your ticket will be confirmed after payment verification.",
+    "payment"
+  );
+
+  markAsPaid();
+
+  setTimeout(() => {
+    window.location.href = "index.html#tickets";
+  }, 1200);
+}
+</script>
+
+</body>
+</html>

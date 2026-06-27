@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta property="og:title" content="TicketHub">
+<meta property="og:description" content="Buy tickets for concerts, Formula 1, football, esports and live events worldwide.">
+
+<meta property="og:image" content="https://ticketsshub.netlify.app/preview.jpg">
+
+<meta property="og:url" content="https://ticketsshub.netlify.app">
+<meta property="og:type" content="website">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TicketHub</title>
+
+<meta name="google-site-verification" content="98xXnUwQp5xzYB07PtQGGA5-D6eNGzDI-RhHm5RWAOE" />
+<meta name="description" content="TicketHub - buy tickets for concerts, Formula 1, football, esports, festivals and live events worldwide.">
+
+<meta name="keywords" content="tickets, concert tickets, formula 1 tickets, football tickets, festival tickets, esports tickets, TicketHub">
+
+<meta name="author" content="TicketHub">
+
+<meta property="og:title" content="TicketHub">
+<meta property="og:description" content="Find tickets for the world's best events.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ticketsshub.netlify.app">
+
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">🎟 TicketHub</a>
+
+  <<nav>
+  <a href="#events">Events</a>
+  <a href="#deals">Hot Deals</a>
+  <a href="#tickets">My Tickets</a>
+  <a href="account.html">Account</a>
+  <a href="#fun">Fun Zone</a>
+</nav>
+</header>
+
+<section class="ticker">
+  <div class="ticker-content">
+    🔥 This week: Berlin Music Festival • Austrian GP • Paris Basketball Night • Seoul Esports Masters • London Tennis Finals • Barcelona Food Expo •
+  </div>
+</section>
+
+<section class="hero">
+  <div class="hero-badge">Global ticket marketplace</div>
+
+  <h1>Discover events worth remembering</h1>
+
+  <p>
+    Buy tickets for concerts, sports, racing, festivals and exclusive experiences
+    across the world — fast, simple and beautifully.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#events" class="main-btn">Explore Events</a>
+    <a href="#tickets" class="second-btn">My Tickets</a>
+  </div>
+
+  <div class="hero-stats">
+    <div><h2>32+</h2><span>Events</span></div>
+    <div><h2>78K</h2><span>Tickets Sold</span></div>
+    <div><h2>21</h2><span>Countries</span></div>
+  </div>
+</section>
+
+<section class="story">
+  <div>
+    <span class="section-label">Why TicketHub</span>
+    <h2>Your next unforgettable night starts here</h2>
+    <p>
+      Imagine one place where you can find the best events in Europe, Asia and America:
+      Formula weekends, stadium concerts, football finals, esports arenas and cultural festivals.
+    </p>
+    <p>
+      TicketHub is built to feel simple: choose an event, reserve your ticket, pay online,
+      and keep everything inside your personal ticket wallet.
+    </p>
+  </div>
+
+  <div class="story-card">
+    <h3>Tonight’s Highlight</h3>
+    <p>🎸 Rock Legends Night</p>
+    <p>📍 Prague, Czech Republic</p>
+    <p>🔥 9,800 tickets already sold</p>
+  </div>
+</section>
+<section class="media-showcase">
+  <span class="section-label">Real atmosphere</span>
+  <h2>Feel the event before you arrive</h2>
+  <p>
+    From roaring racing weekends to open-air festivals and stadium nights — TicketHub helps people discover experiences that feel alive.
+  </p>
+
+  <div class="media-grid">
+    <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a" alt="Concert crowd">
+    <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0" alt="Football stadium">
+    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70" alt="Motorsport">
+    <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745" alt="Festival lights">
+  </div>
+</section>
+
+<section class="video-section">
+  <div>
+    <span class="section-label">Live preview</span>
+    <h2>Watch the vibe</h2>
+    <p>
+      Add short videos to make the marketplace feel more emotional, premium and trustworthy.
+    </p>
+  </div>
+
+  <div class="video-gallery">
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="https://res.cloudinary.com/dcfumpybb/video/upload/v1782404138/110942-689510603_fksnpy.mp4" type="video/mp4">
+  </video>
+
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="https://res.cloudinary.com/dcfumpybb/video/upload/v1782404128/110941-689510597_vxbt6z.mp4" type="video/mp4">
+  </video>
+
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="https://res.cloudinary.com/dcfumpybb/video/upload/v1782404091/13329293_1080_1920_30fps_whfvwv.mp4" type="video/mp4">
+  </video>
+</div>
+</section>
+
+<section id="deals" class="deals">
+  <div class="section-head">
+    <div>
+      <span class="section-label">Limited offers</span>
+      <h2>🔥 Hot Deals</h2>
+      <p>Discounted tickets and last-minute experiences.</p>
+    </div>
+  </div>
+
+  <div id="dealsGrid" class="cards"></div>
+</section>
+
+<section id="events" class="events">
+  <div class="section-head">
+    <div>
+      <span class="section-label">Marketplace</span>
+      <h2>Popular Events</h2>
+    </div>
+
+    <input id="searchInput" type="text" placeholder="Search event, city, country...">
+  </div>
+
+  <div class="categories">
+    <button onclick="filterEvents('All')">All</button>
+    <button onclick="filterEvents('Concert')">Concerts</button>
+    <button onclick="filterEvents('Football')">Football</button>
+    <button onclick="filterEvents('Motorsport')">Motorsport</button>
+    <button onclick="filterEvents('Festival')">Festivals</button>
+    <button onclick="filterEvents('Esports')">Esports</button>
+  </div>
+
+  <div id="eventGrid" class="cards"></div>
+</section>
+
+<section id="tickets" class="my-tickets">
+  <div class="section-head">
+    <div>
+      <span class="section-label">Wallet</span>
+      <h2>🎫 My Tickets</h2>
+    </div>
+  </div>
+
+  <div id="ticketContainer">
+    <p class="empty">No tickets selected yet.</p>
+  </div>
+</section>
+
+<section id="how" class="how">
+  <span class="section-label">Simple process</span>
+  <h2>How TicketHub works</h2>
+
+  <div class="steps">
+    <div>
+      <h3>1. Choose event</h3>
+      <p>Find concerts, sport, racing, festivals and live shows.</p>
+    </div>
+
+    <div>
+      <h3>2. Reserve ticket</h3>
+      <p>Your ticket appears in My Tickets with status “Awaiting payment”.</p>
+    </div>
+
+    <div>
+      <h3>3. Pay online</h3>
+      <p>Later we will connect Stripe, LiqPay or WayForPay for real payments.</p>
+    </div>
+
+    <div>
+      <h3>4. Enter event</h3>
+      <p>After payment, your ticket becomes confirmed with a digital code.</p>
+    </div>
+  </div>
+</section>
+
+<section class="live">
+  <span class="section-label">Live activity</span>
+  <h2>People are buying right now</h2>
+
+  <div id="liveFeed" class="live-feed"></div>
+</section>
+
+<section id="fun" class="fun">
+  <span class="section-label">Fun Zone</span>
+  <h2>Mini anti-stress corner</h2>
+  <p>Click the orb or generate a random weekend plan.</p>
+
+  <div class="fun-grid">
+    <button id="orb" class="orb">✨</button>
+
+    <div class="random-box">
+      <h3>Random Event Picker</h3>
+      <p id="randomText">Click the button and TicketHub will choose your next adventure.</p>
+      <button onclick="randomEvent()">Pick for me</button>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <span class="section-label">Questions</span>
+  <h2>FAQ</h2>
+
+  <details>
+    <summary>Is payment real now?</summary>
+    <p>Not yet. Current payment is demo. Real payment will require Stripe, LiqPay or WayForPay account.</p>
+  </details>
+
+  <details>
+    <summary>Can tickets be deleted?</summary>
+    <p>Yes. You can delete tickets from My Tickets.</p>
+  </details>
+
+  <details>
+    <summary>Will this work on mobile?</summary>
+    <p>Yes. The design is responsive and works on phones, tablets and laptops.</p>
+  </details>
+</section>
+<section id="account" class="account-section">
+  <span class="section-label">Personal account</span>
+  <h2>👤 Your TicketHub Account</h2>
+
+  <div id="accountBox" class="account-box"></div>
+</section>
+<footer>
+  <p>© 2026 TicketHub. Built for global events.</p>
+</footer>
+
+<script src="js/toast.js"></script>
+<script src="js/events.js"></script>
+<script src="js/account.js"></script>
+<script src="js/tickets.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>

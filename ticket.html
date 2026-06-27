@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TicketHub Digital Ticket</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">🎟 TicketHub</a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#tickets">My Tickets</a>
+  </nav>
+</header>
+
+<section class="ticket-page">
+
+  <div class="digital-ticket" id="digitalTicket"></div>
+
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="js/toast.js"></script>
+<script>
+const ticketId = localStorage.getItem("selectedTicketId");
+const tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+const ticket = tickets.find(t => t.id === ticketId);
+const box = document.getElementById("digitalTicket");
+
+if (!ticket) {
+  box.innerHTML = `
+    <span class="section-label">Ticket not found</span>
+    <h1>Ticket not found</h1>
+    <p>Please return to My Tickets and open your ticket again.</p>
+    <a class="main-btn" href="index.html#tickets">Back to My Tickets</a>
+  `;
+} else {
+  const paid = ticket.status.includes("Paid");
+  let viewedTickets = JSON.parse(localStorage.getItem("viewedTickets")) || [];
+
+if(!viewedTickets.includes(ticket.id)){
+  viewedTickets.push(ticket.id);
+  localStorage.setItem("viewedTickets", JSON.stringify(viewedTickets));
+}
+
+  box.innerHTML = `
+    <span class="section-label">Digital Ticket</span>
+
+    <h1>${ticket.title}</h1>
+
+    <div class="digital-status ${paid ? "digital-paid" : "digital-waiting"}">
+      ${ticket.status}
+    </div>
+
+    <div class="ticket-details">
+      <p><strong>Order:</strong> ${ticket.id}</p>
+      <p><strong>Location:</strong> ${ticket.location}</p>
+      <p><strong>Date:</strong> ${ticket.date}</p>
+      <p><strong>Price:</strong> $${ticket.price}</p>
+      <p><strong>Reserved:</strong> ${ticket.purchasedAt}</p>
+    </div>
+
+    <div class="big-qr">
+      <div class="fake-qr">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <p class="ticket-note">
+      This is your demo digital ticket. Later we will generate a real unique QR code for event entry.
+    </p>
+
+    <div class="ticket-page-actions">
+      <a class="second-btn" href="index.html#tickets">Back to My Tickets</a>
+      ${paid ? `<button class="demo-btn" onclick="downloadTicketPDF()">Download PDF</button>` : ""}
+    </div>
+  `;
+}
+function downloadTicketPDF(){
+  if(!ticket){
+    alert("Ticket not found");
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFillColor(5, 8, 22);
+  doc.rect(0, 0, 210, 297, "F");
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(26);
+  doc.text("TicketHub Digital Ticket", 20, 30);
+
+  doc.setFontSize(18);
+  doc.text(ticket.title, 20, 55);
+
+  doc.setFontSize(12);
+  doc.setTextColor(200, 210, 225);
+
+  doc.text(`Order: ${ticket.id}`, 20, 75);
+  doc.text(`Location: ${ticket.location}`, 20, 88);
+  doc.text(`Date: ${ticket.date}`, 20, 101);
+  doc.text(`Price: $${ticket.price}`, 20, 114);
+  doc.text(`Status: ${ticket.status}`, 20, 127);
+  doc.text(`Reserved: ${ticket.purchasedAt}`, 20, 140);
+
+  doc.setFillColor(124, 58, 237);
+  doc.roundedRect(20, 160, 70, 70, 6, 6, "F");
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(14);
+  doc.text("QR DEMO", 42, 198);
+
+  doc.setFontSize(10);
+  doc.setTextColor(150, 160, 180);
+  doc.text("This is a demo PDF ticket. Real QR verification will be added later.", 20, 250);
+
+  doc.save(`${ticket.id}-TicketHub.pdf`);
+}
+</script>
+
+</body>
+</html>

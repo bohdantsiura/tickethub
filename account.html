@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TicketHub Account</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <a href="index.html" class="logo">🎟 TicketHub</a>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#events">Events</a>
+    <a href="index.html#tickets">My Tickets</a>
+  </nav>
+</header>
+
+<section class="account-page">
+  <div id="fullAccountBox" class="full-account"></div>
+</section>
+
+<script src="js/toast.js"></script>
+<script src="js/events.js"></script>
+<script src="js/account.js"></script>
+<script src="js/tickets.js"></script>
+
+<script>
+  function openEventDetails(title){
+  localStorage.setItem("selectedEventTitle", title);
+  window.location.href = "event.html";
+}
+function openPayment(id){
+  localStorage.setItem("selectedTicketId", id);
+  window.location.href = "payment.html";
+}
+
+function openTicket(id){
+  localStorage.setItem("selectedTicketId", id);
+  window.location.href = "ticket.html";
+}
+
+const fullAccountBox = document.getElementById("fullAccountBox");
+const accountUser = JSON.parse(localStorage.getItem("tickethubUser"));
+const tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+const viewedTickets = JSON.parse(localStorage.getItem("viewedTickets")) || [];
+
+if(!accountUser){
+  fullAccountBox.innerHTML = `
+    <span class="section-label">Account</span>
+    <h1>No account yet</h1>
+    <p>Please create an account on the main page first.</p>
+    <a class="main-btn" href="index.html#account">Create Account</a>
+  `;
+} else {
+  const paidTickets = tickets.filter(t => t.status.includes("Paid"));
+  const totalSpent = paidTickets.reduce((sum, t) => sum + Number(t.price), 0);
+
+  const originalTotal = paidTickets.reduce((sum, ticket) => {
+    const event = events.find(e => e.title === ticket.title);
+    return sum + (event ? event.price : ticket.price);
+  }, 0);
+
+  const saved = Math.max(originalTotal - totalSpent, 0);
+
+  let level = "Bronze";
+  let nextLevel = "Silver";
+  let currentTarget = 0;
+  let nextTarget = 500;
+
+  if(totalSpent >= 2000){
+    level = "Platinum";
+    nextLevel = "Max level";
+    currentTarget = 2000;
+    nextTarget = 2000;
+  } else if(totalSpent >= 1000){
+    level = "Gold";
+    nextLevel = "Platinum";
+    currentTarget = 1000;
+    nextTarget = 2000;
+  } else if(totalSpent >= 500){
+    level = "Silver";
+    nextLevel = "Gold";
+    currentTarget = 500;
+    nextTarget = 1000;
+  }
+
+  const progress =
+    nextTarget === currentTarget
+    ? 100
+    : Math.min(
+        100,
+        Math.round(((totalSpent - currentTarget) / (nextTarget - currentTarget)) * 100)
+      );
+
+  const amountLeft = Math.max(nextTarget - totalSpent, 0);
+
+  fullAccountBox.innerHTML = `
+    <span class="section-label">Personal Dashboard</span>
+
+    <h1>👋 ${accountUser.name}</h1>
+    <p class="account-email">${accountUser.email}</p>
+
+    <div class="level-card">
+      <h2>${level} Member</h2>
+      <p>Member since: ${accountUser.joined}</p>
+
+      <div class="level-progress-info">
+        ${
+          nextLevel === "Max level"
+          ? "🏆 You reached the highest level"
+          : `$${totalSpent} / $${nextTarget} to ${nextLevel}`
+        }
+      </div>
+
+      <div class="level-progress">
+        <span style="width:${progress}%"></span>
+      </div>
+
+      ${
+        nextLevel === "Max level"
+        ? `<p>Thank you for being one of our top clients.</p>`
+        : `<p>$${amountLeft} left to reach ${nextLevel} level.</p>`
+      }
+    </div>
+
+    <div class="dashboard-grid">
+      <div>
+        <h3>${tickets.length}</h3>
+        <p>Total reserved tickets</p>
+      </div>
+
+      <div>
+        <h3>${paidTickets.length}</h3>
+        <p>Paid tickets</p>
+      </div>
+
+      <div>
+        <h3>$${totalSpent}</h3>
+        <p>Total spent</p>
+      </div>
+
+      <div>
+        <h3>$${saved}</h3>
+        <p>Saved with discounts</p>
+      </div>
+
+      <div>
+        <h3>${viewedTickets.length}</h3>
+        <p>Viewed digital tickets</p>
+      </div>
+    </div>
+
+    <h2 class="account-subtitle">🎫 Your Tickets</h2>
+
+    <div class="account-ticket-list">
+      ${
+        tickets.length === 0
+        ? `<p class="empty">No tickets yet.</p>`
+        : tickets.map(ticket => {
+          const paid = ticket.status.includes("Paid");
+
+          return `
+          <div class="account-ticket">
+            <h3>${ticket.title}</h3>
+            <p>Order: ${ticket.id}</p>
+            <p>📍 ${ticket.location}</p>
+            <p>📅 ${ticket.date}</p>
+            <p>💳 $${ticket.price}</p>
+
+            <span class="ticket-status ${
+              paid ? "status-paid" : "status-waiting"
+            }">${ticket.status}</span>
+
+            <div class="account-ticket-actions">
+              <button onclick="openEventDetails('${ticket.title}')">
+  View Event Details
+</button>
+              ${
+                paid
+                ? `<button onclick="openTicket('${ticket.id}')">View Digital Ticket</button>`
+                : `<button onclick="openPayment('${ticket.id}')">Pay Online</button>`
+              }
+            </div>
+          </div>
+          `;
+        }).join("")
+      }
+    </div>
+
+    <button class="logout-btn account-logout" onclick="logoutUser()">
+      Logout
+    </button>
+  `;
+}
+</script>
+
+</body>
+</html>
