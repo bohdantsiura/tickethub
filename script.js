@@ -68,7 +68,7 @@ function renderEvents(){
 
           <p class="price">From $${event.price}</p>
 
-          <button class="buy-btn" onclick="reserveTicket('${event.title}')">
+          <button class="buy-btn" onclick="openEventDetails('${event.title}')">
             Reserve Ticket
           </button>
         </div>
@@ -84,7 +84,7 @@ function filterEvents(category){
 }
 
 function reserveTicket(title){
-  const event = events.find(e => e.title === title);
+  openEventDetails(title);
 
   if(!event || event.available <= 0){
     alert("Sorry, this event is sold out.");

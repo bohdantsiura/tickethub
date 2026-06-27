@@ -314,5 +314,16 @@
 <script src="js/tickets.js"></script>
 <script src="js/app.js"></script>
 
+<script>
+function reserveTicket(title){
+  localStorage.setItem("selectedEventTitle", title);
+  window.location.href = "event.html";
+}
+
+function openEventDetails(title){
+  localStorage.setItem("selectedEventTitle", title);
+  window.location.href = "event.html";
+}
+</script>
 </body>
 </html>

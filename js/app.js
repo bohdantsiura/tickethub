@@ -83,8 +83,8 @@ function renderEvents(){
             $${finalPrice}
           </p>
 
-          <button class="buy-btn" onclick="reserveTicket('${event.title}')">
-  Quick Reserve
+          <button class="buy-btn" onclick="openEventDetails('${event.title}')">
+  Choose Seats
 </button>
 
 <button class="details-btn" onclick="openEventDetails('${event.title}')">

@@ -42,58 +42,7 @@ return price;
 }
 
 function reserveTicket(title){
-
-const event =
-events.find(
-e => e.title === title
-);
-
-if(!event){
-
-return;
-}
-
-const ticket = {
-
-id:
-"TH-" +
-Math.floor(
-10000 +
-Math.random() * 90000
-),
-
-title:event.title,
-
-location:event.location,
-
-date:event.date,
-
-price:getFinalPrice(event),
-
-status:"Awaiting payment",
-
-purchasedAt:
-new Date().toLocaleDateString()
-
-};
-
-purchasedTickets.push(ticket);
-
-saveTickets();
-
-renderTickets();
-
-showToast(
-"🎟 Ticket reserved",
-`${ticket.title} added to My Tickets for $${ticket.price}`
-);
-
-document
-.getElementById("tickets")
-.scrollIntoView({
-behavior:"smooth"
-});
-
+  openEventDetails(title);
 }
 
 function payTicket(id){
@@ -326,12 +275,8 @@ $${discountedPrice}
 
 </p>
 
-<button
-class="buy-btn"
-onclick="reserveTicket('${event.title}')">
-
-Grab Deal
-
+<button class="buy-btn" onclick="openEventDetails('${event.title}')">
+  Choose Seats
 </button>
 <button
 class="details-btn"

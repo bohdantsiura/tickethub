@@ -2120,3 +2120,243 @@ color:#bbf7d0;
 .selected-total strong{
 color:white;
 }
+/* =========================
+   Mobile UX upgrade
+========================= */
+
+@media(max-width:820px){
+
+  body{
+    overflow-x:hidden;
+  }
+
+  header{
+    padding:14px 18px;
+  }
+
+  .logo{
+    font-size:22px;
+  }
+
+  nav{
+    gap:12px;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+
+  nav a{
+    font-size:13px;
+  }
+
+  .hero{
+    padding:90px 18px 40px;
+    min-height:auto;
+  }
+
+  .hero h1{
+    font-size:38px;
+    line-height:1.05;
+  }
+
+  .hero p{
+    font-size:15px;
+  }
+
+  section{
+    padding:45px 18px;
+  }
+
+  .cards,
+  .events-grid,
+  .deals-grid{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .card,
+  .event-card,
+  .deal-card{
+    border-radius:18px;
+    padding:12px;
+  }
+
+  .card img,
+  .event-card img,
+  .deal-card img{
+    height:115px;
+    border-radius:14px;
+  }
+
+  .card h3,
+  .event-card h3,
+  .deal-card h3{
+    font-size:15px;
+    line-height:1.15;
+    margin-top:8px;
+  }
+
+  .card p,
+  .event-card p,
+  .deal-card p{
+    font-size:12px;
+    line-height:1.35;
+  }
+
+  .buy-btn,
+  .details-btn{
+    padding:10px;
+    font-size:12px;
+    border-radius:12px;
+  }
+
+  .section-label{
+    font-size:11px;
+  }
+
+  h2{
+    font-size:30px;
+  }
+
+  .video-gallery{
+    grid-template-columns:1fr;
+  }
+
+  .video-gallery video{
+    height:220px;
+  }
+
+  .faq details{
+    padding:14px;
+  }
+
+  .faq summary{
+    font-size:14px;
+  }
+
+  .faq p{
+    font-size:13px;
+  }
+}
+/* =========================
+   FORCE MOBILE COMPACT MODE
+========================= */
+
+@media screen and (max-width: 820px){
+
+  html, body{
+    width:100% !important;
+    overflow-x:hidden !important;
+  }
+
+  header{
+    padding:12px 14px !important;
+  }
+
+  .logo{
+    font-size:20px !important;
+  }
+
+  nav{
+    display:flex !important;
+    gap:10px !important;
+    overflow-x:auto !important;
+    white-space:nowrap !important;
+  }
+
+  nav a{
+    font-size:12px !important;
+  }
+
+  section{
+    padding:34px 14px !important;
+  }
+
+  .hero{
+    min-height:auto !important;
+    padding:85px 14px 34px !important;
+  }
+
+  .hero h1{
+    font-size:34px !important;
+    line-height:1.05 !important;
+  }
+
+  .hero p{
+    font-size:14px !important;
+  }
+
+  .cards,
+  .events-grid,
+  .deals-grid,
+  .ticket-grid,
+  .hot-grid,
+  #eventsContainer,
+  #dealsContainer{
+    display:grid !important;
+    grid-template-columns:repeat(2, minmax(0, 1fr)) !important;
+    gap:10px !important;
+  }
+
+  .card,
+  .event-card,
+  .deal-card,
+  .ticket-card{
+    padding:10px !important;
+    border-radius:16px !important;
+  }
+
+  .card img,
+  .event-card img,
+  .deal-card img,
+  .ticket-card img{
+    height:95px !important;
+    border-radius:12px !important;
+    object-fit:cover !important;
+  }
+
+  .card h3,
+  .event-card h3,
+  .deal-card h3,
+  .ticket-card h3{
+    font-size:14px !important;
+    line-height:1.15 !important;
+    margin:7px 0 !important;
+  }
+
+  .card p,
+  .event-card p,
+  .deal-card p,
+  .ticket-card p{
+    font-size:11px !important;
+    line-height:1.25 !important;
+    margin:4px 0 !important;
+  }
+
+  .buy-btn,
+  .details-btn,
+  button{
+    padding:9px 8px !important;
+    font-size:11px !important;
+    border-radius:11px !important;
+  }
+
+  h2{
+    font-size:28px !important;
+  }
+
+  .section-label{
+    font-size:10px !important;
+  }
+
+  .video-gallery{
+    grid-template-columns:1fr !important;
+  }
+
+  .video-gallery video{
+    height:190px !important;
+  }
+
+  .faq details{
+    padding:12px !important;
+  }
+}
