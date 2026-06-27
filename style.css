@@ -1445,3 +1445,678 @@ grid-template-columns:repeat(4,1fr);
 height:44px;
 }
 }
+.wide-event-layout{
+grid-template-columns:.8fr 1.4fr;
+}
+
+.advanced-map-box{
+overflow:hidden;
+}
+
+.seat-summary-box{
+margin:24px 0;
+padding:20px;
+border-radius:20px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.seat-summary-box h3{
+margin-bottom:12px;
+}
+
+.seat-summary-box p{
+margin-bottom:6px;
+}
+
+.advanced-venue{
+position:relative;
+padding:28px;
+border-radius:30px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+overflow:hidden;
+}
+
+.venue-center{
+height:170px;
+border-radius:28px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+margin-bottom:28px;
+border:2px solid rgba(255,255,255,.12);
+color:white;
+}
+
+.concert-center{
+background:linear-gradient(135deg,#7c3aed,#2563eb);
+clip-path:ellipse(70% 55% at 50% 50%);
+}
+
+.stadium-center{
+background:linear-gradient(135deg,#16a34a,#15803d);
+}
+
+.race-center{
+background:#111827;
+border-radius:50%;
+}
+
+.tennis-center{
+background:linear-gradient(135deg,#2563eb,#1d4ed8);
+}
+
+.arena-center{
+background:linear-gradient(135deg,#7c3aed,#ec4899);
+}
+
+.field-lines,
+.track-line,
+.court-net{
+width:70%;
+height:60%;
+border:2px solid rgba(255,255,255,.6);
+border-radius:18px;
+position:absolute;
+}
+
+.track-line{
+border-radius:50%;
+}
+
+.court-net{
+height:2px;
+background:white;
+border:none;
+}
+
+.advanced-seat-grid{
+display:grid;
+grid-template-columns:repeat(14,1fr);
+gap:8px;
+}
+
+.advanced-seat{
+height:34px;
+font-size:11px;
+border-radius:9px;
+}
+
+.advanced-seat.vip{
+background:#ec4899;
+}
+
+.advanced-seat.gold{
+background:#f59e0b;
+color:#111827;
+}
+
+.advanced-seat.standard{
+background:#2563eb;
+}
+
+.advanced-seat.sold{
+background:#475569;
+color:#94a3b8;
+cursor:not-allowed;
+opacity:.5;
+}
+
+.advanced-seat.active{
+outline:3px solid white;
+transform:scale(1.15);
+box-shadow:0 0 25px rgba(255,255,255,.35);
+}
+
+.legend-selected{
+background:white;
+}
+
+.football-map .advanced-seat-grid{
+grid-template-columns:repeat(16,1fr);
+}
+
+.race-map .advanced-seat-grid{
+grid-template-columns:repeat(16,1fr);
+}
+
+.concert-map .advanced-seat-grid{
+grid-template-columns:repeat(14,1fr);
+}
+
+.tennis-map .advanced-seat-grid{
+grid-template-columns:repeat(12,1fr);
+}
+
+@media(max-width:1000px){
+.wide-event-layout{
+grid-template-columns:1fr;
+}
+
+.advanced-seat-grid,
+.football-map .advanced-seat-grid,
+.race-map .advanced-seat-grid,
+.concert-map .advanced-seat-grid,
+.tennis-map .advanced-seat-grid{
+grid-template-columns:repeat(6,1fr);
+}
+
+.advanced-seat{
+height:38px;
+font-size:12px;
+}
+}
+.pro-event-layout{
+grid-template-columns:.72fr 1.45fr;
+gap:34px;
+}
+
+.pro-map-box{
+overflow:hidden;
+}
+
+.pro-map{
+padding:26px;
+border-radius:30px;
+background:
+radial-gradient(circle at 50% 20%,rgba(124,58,237,.18),transparent 35%),
+#0f172a;
+border:1px solid rgba(255,255,255,.09);
+}
+
+.pro-center{
+min-height:145px;
+border-radius:28px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
+overflow:hidden;
+margin:18px 0;
+border:2px solid rgba(255,255,255,.12);
+color:white;
+font-weight:900;
+}
+
+.pro-center span{
+margin-top:8px;
+font-size:13px;
+color:#cbd5e1;
+}
+
+.pro-stage{
+background:linear-gradient(135deg,#7c3aed,#2563eb);
+clip-path:ellipse(72% 58% at 50% 50%);
+}
+
+.pro-football-field{
+background:linear-gradient(135deg,#16a34a,#15803d);
+}
+
+.football-line{
+position:absolute;
+width:78%;
+height:62%;
+border:2px solid rgba(255,255,255,.65);
+border-radius:16px;
+}
+
+.pro-race-track{
+background:#020617;
+border-radius:50%;
+min-height:210px;
+}
+
+.track-inner{
+position:absolute;
+width:78%;
+height:58%;
+border:18px solid rgba(255,255,255,.16);
+border-radius:50%;
+box-shadow:inset 0 0 0 2px rgba(255,255,255,.28);
+}
+
+.pro-tennis-court{
+background:linear-gradient(135deg,#2563eb,#1d4ed8);
+}
+
+.tennis-net{
+position:absolute;
+width:76%;
+height:2px;
+background:white;
+opacity:.85;
+}
+
+.pro-esports-screen{
+background:linear-gradient(135deg,#111827,#7c3aed);
+}
+
+.pro-arena{
+background:linear-gradient(135deg,#ec4899,#7c3aed);
+}
+
+.pro-section{
+padding:18px;
+border-radius:22px;
+background:rgba(255,255,255,.055);
+border:1px solid rgba(255,255,255,.08);
+margin-bottom:16px;
+}
+
+.pro-section-head{
+display:flex;
+justify-content:space-between;
+gap:16px;
+align-items:center;
+margin-bottom:14px;
+}
+
+.pro-section-head h4{
+margin:0;
+font-size:16px;
+}
+
+.pro-section-head span{
+font-size:12px;
+font-weight:900;
+color:#cbd5e1;
+}
+
+.pro-seats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(38px,1fr));
+gap:7px;
+}
+
+.pro-seat{
+height:34px;
+border:none;
+border-radius:9px;
+font-size:11px;
+font-weight:900;
+cursor:pointer;
+color:white;
+transition:.22s;
+}
+
+.pro-seat.vip{
+background:#ec4899;
+}
+
+.pro-seat.gold{
+background:#f59e0b;
+color:#111827;
+}
+
+.pro-seat.standard{
+background:#2563eb;
+}
+
+.pro-seat.sold{
+background:#475569;
+color:#94a3b8;
+opacity:.52;
+cursor:not-allowed;
+}
+
+.pro-seat:not(.sold):hover{
+transform:translateY(-3px) scale(1.04);
+box-shadow:0 12px 30px rgba(124,58,237,.28);
+}
+
+.pro-seat.active{
+outline:3px solid white;
+transform:scale(1.16);
+box-shadow:0 0 28px rgba(255,255,255,.45);
+}
+
+.stadium-middle{
+display:grid;
+grid-template-columns:.62fr 1.25fr .62fr;
+gap:16px;
+align-items:center;
+}
+
+.stadium-middle .pro-section{
+margin-bottom:0;
+}
+
+.race-side-stands,
+.concert-floor{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.seat-summary-box{
+margin:24px 0;
+padding:20px;
+border-radius:20px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.seat-summary-box h3{
+margin-bottom:12px;
+}
+
+.legend-selected{
+background:white;
+}
+
+@media(max-width:1000px){
+.pro-event-layout{
+grid-template-columns:1fr;
+}
+
+.stadium-middle,
+.race-side-stands,
+.concert-floor{
+grid-template-columns:1fr;
+}
+
+.pro-seat{
+height:38px;
+font-size:12px;
+}
+}
+/* =========================
+   TicketHub SeatMap V2
+========================= */
+
+.seatmap-stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin:24px 0;
+}
+
+.seatmap-stats div{
+padding:18px;
+border-radius:18px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.seatmap-stats h3{
+font-size:28px;
+color:#a78bfa;
+}
+
+.seatmap-stats p{
+color:#94a3b8;
+font-size:13px;
+margin:0;
+}
+
+.seatmap-map{
+padding:26px;
+border-radius:30px;
+background:
+radial-gradient(circle at 50% 15%,rgba(124,58,237,.18),transparent 35%),
+#0f172a;
+border:1px solid rgba(255,255,255,.09);
+}
+
+.seatmap-center{
+min-height:150px;
+border-radius:28px;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
+overflow:hidden;
+margin:18px 0;
+border:2px solid rgba(255,255,255,.12);
+font-weight:900;
+}
+
+.seatmap-center span{
+margin-top:8px;
+font-size:13px;
+color:#cbd5e1;
+max-width:420px;
+}
+
+.seatmap-center-concert{
+background:linear-gradient(135deg,#7c3aed,#2563eb);
+clip-path:ellipse(72% 58% at 50% 50%);
+}
+
+.seatmap-center-football{
+background:linear-gradient(135deg,#16a34a,#15803d);
+}
+
+.seatmap-center-race{
+background:#020617;
+border-radius:50%;
+min-height:230px;
+}
+
+.seatmap-center-race::before{
+content:"";
+position:absolute;
+width:75%;
+height:55%;
+border:20px solid rgba(255,255,255,.16);
+border-radius:50%;
+box-shadow:inset 0 0 0 2px rgba(255,255,255,.28);
+}
+
+.seatmap-center-tennis{
+background:linear-gradient(135deg,#2563eb,#1d4ed8);
+}
+
+.seatmap-center-basketball,
+.seatmap-center-arena{
+background:linear-gradient(135deg,#ec4899,#7c3aed);
+}
+
+.seatmap-center-esports{
+background:linear-gradient(135deg,#111827,#7c3aed);
+}
+
+.seatmap-center-festival{
+background:linear-gradient(135deg,#f97316,#7c3aed);
+}
+
+.seatmap-section{
+padding:18px;
+border-radius:22px;
+background:rgba(255,255,255,.055);
+border:1px solid rgba(255,255,255,.08);
+margin-bottom:16px;
+}
+
+.seatmap-section-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:14px;
+margin-bottom:14px;
+}
+
+.seatmap-section-header h4{
+margin:0;
+font-size:16px;
+}
+
+.seatmap-section-header span{
+font-size:12px;
+font-weight:900;
+color:#cbd5e1;
+}
+
+.seatmap-seats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(36px,1fr));
+gap:7px;
+}
+
+.seatmap-seat{
+height:34px;
+border:none;
+border-radius:9px;
+font-size:11px;
+font-weight:900;
+cursor:pointer;
+color:white;
+transition:.22s;
+}
+
+.seatmap-seat.vip{
+background:#ec4899;
+}
+
+.seatmap-seat.gold{
+background:#f59e0b;
+color:#111827;
+}
+
+.seatmap-seat.standard{
+background:#2563eb;
+}
+
+.seatmap-seat.sold{
+background:#475569;
+color:#94a3b8;
+opacity:.52;
+cursor:not-allowed;
+}
+
+.seatmap-seat:not(.sold):hover{
+transform:translateY(-3px) scale(1.04);
+box-shadow:0 12px 30px rgba(124,58,237,.28);
+}
+
+.seatmap-seat.active{
+outline:3px solid white;
+transform:scale(1.16);
+box-shadow:0 0 28px rgba(255,255,255,.45);
+}
+
+.seatmap-stadium-row{
+display:grid;
+grid-template-columns:.7fr 1.25fr .7fr;
+gap:16px;
+align-items:center;
+}
+
+.seatmap-stadium-row .seatmap-section{
+margin-bottom:0;
+}
+
+.seatmap-two-cols{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+}
+
+.shape-arc{
+border-color:rgba(236,72,153,.35);
+}
+
+.shape-left,
+.shape-right{
+border-color:rgba(245,158,11,.28);
+}
+
+.shape-wide{
+border-color:rgba(37,99,235,.28);
+}
+
+.seat-summary-box{
+margin:24px 0;
+padding:20px;
+border-radius:20px;
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.seat-summary-box h3{
+margin-bottom:12px;
+}
+
+.seat-summary-box p{
+margin-bottom:6px;
+}
+
+.legend-selected{
+background:white;
+}
+
+@media(max-width:1000px){
+.pro-event-layout{
+grid-template-columns:1fr;
+}
+
+.seatmap-stadium-row,
+.seatmap-two-cols{
+grid-template-columns:1fr;
+}
+
+.seatmap-seat{
+height:38px;
+font-size:12px;
+}
+
+.seatmap-stats{
+grid-template-columns:1fr;
+}
+}
+.selected-seat-list{
+display:grid;
+gap:10px;
+margin-top:10px;
+}
+
+.selected-seat-item{
+display:grid;
+grid-template-columns:1fr;
+gap:4px;
+padding:12px;
+border-radius:14px;
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.selected-seat-item span{
+font-weight:900;
+color:white;
+}
+
+.selected-seat-item small{
+color:#94a3b8;
+}
+
+.selected-seat-item strong{
+color:#bbf7d0;
+}
+
+.selected-total{
+margin-top:14px;
+padding:14px;
+border-radius:16px;
+background:rgba(34,197,94,.13);
+border:1px solid rgba(34,197,94,.28);
+display:flex;
+justify-content:space-between;
+gap:12px;
+font-weight:900;
+}
+
+.selected-total span{
+color:#bbf7d0;
+}
+
+.selected-total strong{
+color:white;
+}
