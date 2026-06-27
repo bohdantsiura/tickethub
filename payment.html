@@ -41,7 +41,7 @@
           Pay safely using your PayPal account, bank card or balance.
         </p>
 
-        <button class="paypal-btn" onclick="payWithPaypal()">
+        <div id="paypal-button-container"></div>
           Continue with PayPal
         </button>
       </div>
@@ -83,7 +83,7 @@
   </div>
 
 </section>
-
+<script src="https://www.paypal.com/sdk/js?client-id=AS6eYs6xEpaCWnmqq_rnSyF3Hcn1we0m3hjy_IBCUszgdevcKgWe5XBnoOylxKV5sIStHuZnrAN-dyaH&currency=USD"></script>
 <script src="js/toast.js"></script>
 <script>
 const paymentInfo = document.getElementById("paymentInfo");
@@ -157,6 +157,62 @@ function confirmCryptoPayment() {
   setTimeout(() => {
     window.location.href = "index.html#tickets";
   }, 1200);
+}
+if (ticket && window.paypal) {
+  paypal.Buttons({
+    createOrder: async function() {
+      const response = await fetch("/.netlify/functions/paypal-create-order", {
+        method: "POST",
+        body: JSON.stringify({
+          amount: ticket.price,
+          ticketId: ticket.id,
+          title: ticket.title
+        })
+      });
+
+      const order = await response.json();
+      return order.id;
+    },
+
+    onApprove: async function(data) {
+      const response = await fetch("/.netlify/functions/paypal-capture-order", {
+        method: "POST",
+        body: JSON.stringify({
+          orderId: data.orderID
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.status === "COMPLETED") {
+        markAsPaid();
+
+        showToast(
+          "Payment successful",
+          "Your ticket has been confirmed.",
+          "payment"
+        );
+
+        setTimeout(() => {
+          window.location.href = "index.html#tickets";
+        }, 1200);
+      } else {
+        showToast(
+          "Payment not completed",
+          "Please try again.",
+          "error"
+        );
+      }
+    },
+
+    onError: function() {
+      showToast(
+        "PayPal error",
+        "Something went wrong during payment.",
+        "error"
+      );
+    }
+  }).render("#paypal-button-container");
 }
 </script>
 
