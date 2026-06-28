@@ -150,14 +150,23 @@ async function startCryptoPayment(){
     const selectedTicket = JSON.parse(localStorage.getItem("selectedTicket") || "{}");
     const selectedEvent = localStorage.getItem("selectedEventTitle") || selectedTicket.title || "TicketHub order";
 
-    const amountFromStorage =
-      localStorage.getItem("selectedTicketPrice") ||
-      localStorage.getItem("ticketPrice") ||
-      selectedTicket.price ||
-      selectedTicket.total ||
-      0;
+    let amountFromStorage =
+  localStorage.getItem("selectedTicketPrice") ||
+  localStorage.getItem("ticketPrice") ||
+  localStorage.getItem("selectedEventPrice") ||
+  localStorage.getItem("selectedPrice") ||
+  selectedTicket.price ||
+  selectedTicket.total ||
+  0;
 
-    const amount = Number(String(amountFromStorage).replace("$", "").trim());
+if(!amountFromStorage || Number(amountFromStorage) <= 0){
+  const priceText = document.body.innerText.match(/\$[\d,.]+/);
+  if(priceText){
+    amountFromStorage = priceText[0];
+  }
+}
+
+const amount = Number(String(amountFromStorage).replace("$", "").replace(",", "").trim());
 
     if(!amount || amount <= 0){
       console.error("Invalid crypto amount:", amountFromStorage, selectedTicket);
