@@ -199,21 +199,6 @@ async function startCryptoPayment(){
   }
 }
 
-    const data = await response.json();
-
-    if(!response.ok || !data.invoice_url){
-      showToast("Crypto payment error", "Could not create crypto invoice.", "error");
-      return;
-    }
-
-    localStorage.setItem("cryptoOrderId", orderId);
-    window.location.href = data.invoice_url;
-
-  }catch(error){
-    showToast("Crypto error", "Something went wrong.", "error");
-  }
-}
-
 if (ticket && window.paypal) {
   paypal.Buttons({
     createOrder: async function() {
