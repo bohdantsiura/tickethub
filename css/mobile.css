@@ -338,3 +338,178 @@
     font-size:17px;
   }
 }
+/* =========================
+   Mobile SeatMap UX
+========================= */
+
+@media screen and (max-width: 820px){
+
+  .event-page{
+    padding:28px 12px 100px !important;
+  }
+
+  .pro-event-layout{
+    grid-template-columns:1fr !important;
+    gap:18px !important;
+  }
+
+  .event-hero-img{
+    height:190px !important;
+    border-radius:20px !important;
+  }
+
+  .event-info-box,
+  .seat-map-box,
+  .pro-map-box{
+    padding:16px !important;
+    border-radius:20px !important;
+  }
+
+  .event-info-box h1{
+    font-size:26px !important;
+    line-height:1.1 !important;
+  }
+
+  .event-info-box p{
+    font-size:13px !important;
+    line-height:1.35 !important;
+  }
+
+  .seatmap-stats{
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:8px !important;
+    margin:16px 0 !important;
+  }
+
+  .seatmap-stats div{
+    padding:10px 6px !important;
+    border-radius:14px !important;
+    text-align:center;
+  }
+
+  .seatmap-stats h3{
+    font-size:20px !important;
+  }
+
+  .seatmap-stats p{
+    font-size:10px !important;
+  }
+
+  .seat-legend{
+    display:flex !important;
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    gap:10px !important;
+    padding-bottom:8px;
+  }
+
+  .seat-legend span{
+    flex:0 0 auto;
+    font-size:12px !important;
+  }
+
+  .seatmap-map{
+    padding:14px !important;
+    border-radius:20px !important;
+    overflow-x:auto !important;
+  }
+
+  .seatmap-center{
+    min-height:105px !important;
+    border-radius:20px !important;
+    margin:12px 0 !important;
+  }
+
+  .seatmap-center strong{
+    font-size:13px !important;
+  }
+
+  .seatmap-center span{
+    font-size:10px !important;
+    padding:0 10px;
+  }
+
+  .seatmap-section{
+    padding:12px !important;
+    border-radius:16px !important;
+    margin-bottom:10px !important;
+    min-width:280px;
+  }
+
+  .seatmap-section-header{
+    margin-bottom:10px !important;
+  }
+
+  .seatmap-section-header h4{
+    font-size:13px !important;
+  }
+
+  .seatmap-section-header span{
+    font-size:10px !important;
+  }
+
+  .seatmap-seats{
+    grid-template-columns:repeat(auto-fit,minmax(34px,1fr)) !important;
+    gap:6px !important;
+  }
+
+  .seatmap-seat{
+    height:34px !important;
+    font-size:10px !important;
+    border-radius:8px !important;
+  }
+
+  .seatmap-stadium-row,
+  .seatmap-two-cols{
+    grid-template-columns:1fr !important;
+    gap:10px !important;
+  }
+
+  .seat-summary-box{
+    position:sticky;
+    bottom:82px;
+    z-index:999;
+    margin:16px 0 !important;
+    padding:14px !important;
+    border-radius:18px !important;
+    background:rgba(15,23,42,.96) !important;
+    backdrop-filter:blur(18px);
+    box-shadow:0 20px 50px rgba(0,0,0,.45);
+  }
+
+  .seat-summary-box h3{
+    font-size:15px !important;
+    margin-bottom:8px !important;
+  }
+
+  .selected-seat-list{
+    max-height:130px;
+    overflow-y:auto;
+  }
+
+  .selected-seat-item{
+    padding:9px !important;
+    border-radius:12px !important;
+  }
+
+  .selected-seat-item span{
+    font-size:13px !important;
+  }
+
+  .selected-seat-item small{
+    font-size:10px !important;
+  }
+
+  .selected-total{
+    padding:11px !important;
+    border-radius:14px !important;
+    font-size:13px !important;
+  }
+
+  .event-info-box .buy-btn{
+    position:sticky;
+    bottom:12px;
+    z-index:1000;
+    box-shadow:0 18px 45px rgba(37,99,235,.35);
+  }
+}
