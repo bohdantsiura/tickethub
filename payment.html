@@ -69,9 +69,9 @@
           Copy wallet address
         </button>
 
-        <button class="pay-btn" onclick="confirmCryptoPayment()">
-          I have paid
-        </button>
+        <button class="pay-btn" onclick="startCryptoPayment()">
+  Pay with Crypto
+</button>
       </div>
 
     </div>
@@ -145,19 +145,38 @@ function copyWallet() {
 );
 }
 
-function confirmCryptoPayment() {
-  showToast(
-    "Payment submitted",
-    "Your ticket will be confirmed after payment verification.",
-    "payment"
-  );
+async function startCryptoPayment(){
+  try{
+    const amount = Number(ticketPrice || selectedTicket?.price || 0);
+    const orderId = localStorage.getItem("selectedOrderId") || `TH-${Date.now()}`;
 
-  markAsPaid();
+    const response = await fetch("/api/create-crypto-payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        amount,
+        orderId,
+        description: selectedTicket?.title || "TicketHub order"
+      })
+    });
 
-  setTimeout(() => {
-    window.location.href = "index.html#tickets";
-  }, 1200);
+    const data = await response.json();
+
+    if(!response.ok || !data.invoice_url){
+      showToast("Crypto payment error", "Could not create crypto invoice.", "error");
+      return;
+    }
+
+    localStorage.setItem("cryptoOrderId", orderId);
+    window.location.href = data.invoice_url;
+
+  }catch(error){
+    showToast("Crypto error", "Something went wrong.", "error");
+  }
 }
+
 if (ticket && window.paypal) {
   paypal.Buttons({
     createOrder: async function() {
