@@ -211,7 +211,7 @@ const amount = Number(String(amountFromStorage).replace("$", "").replace(",", ""
 if (ticket && window.paypal) {
   paypal.Buttons({
     createOrder: async function() {
-      const response = await fetch("/.netlify/functions/paypal-create-order", {
+      const response = await fetch("https://ticketsshub.netlify.app/.netlify/functions/paypal-create-order", {
         method: "POST",
         body: JSON.stringify({
           amount: ticket.price,
@@ -225,7 +225,7 @@ if (ticket && window.paypal) {
     },
 
     onApprove: async function(data) {
-      const response = await fetch("/.netlify/functions/paypal-capture-order", {
+      const response = await fetch("https://ticketsshub.netlify.app/.netlify/functions/paypal-capture-order", {
         method: "POST",
         body: JSON.stringify({
           orderId: data.orderID
