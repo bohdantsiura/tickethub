@@ -217,7 +217,7 @@ if (ticket && window.paypal) {
           amount: ticket.price,
           ticketId: ticket.id,
           title: ticket.title
-        })
+        }) 
       });
 
       const order = await response.json();
